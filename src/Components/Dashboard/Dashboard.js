@@ -2,15 +2,38 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import House from '../House/House';
+import axios from 'axios';
 
 
 class Dashboard extends Component {
 
+    state = {
+        inventory: [],
+    }
 
+    componentDidMount() {
+        this.handleGetHouses();
+    }
 
+    handleGetHouses = () => {
+        axios.get(`/api/getHouse`).then((response) => {
+            this.setState({
+                inventory: response.data
+            })
+        })
+    };
+
+    handleDeleteHouse = (id) => {
+        axios.delete(`/api/deleteHouse/${id}`).then((response) => {
+            this.setState({
+                inventory: response.data
+            })
+        })
+    };
 
 
     render() {
+
         return (
             <div>
                 <section className="hero">
@@ -25,7 +48,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </section>
-                <House />
+                <House houses={this.state.inventory} remove={this.handleDeleteHouse}/>
             </div>
         )
     }
