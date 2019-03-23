@@ -42,7 +42,7 @@ class Dashboard extends Component {
                         <h1 className="title">
                             Dashboard
                         </h1>
-                        <Link to='/wizard' className="subtitle button is-small is-warning">
+                        <Link to='/wizard/step1' className="subtitle button is-small is-warning">
                             Add New Property
                         </Link>
                         </div>

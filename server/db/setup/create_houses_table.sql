@@ -4,5 +4,8 @@ CREATE TABLE houses (
     address TEXT,
     city TEXT,
     state TEXT,
-    zip NUMERIC
+    zip NUMERIC,
+    img TEXT,
+    mortgage TEXT,
+    rent TEXT
 )
