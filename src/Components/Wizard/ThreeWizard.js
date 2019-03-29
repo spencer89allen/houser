@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { addPayment } from '/Users/spencerallen/devmtn/houser/src/redux/wizardReducer.js';
 
 class ThreeWizard extends Component {
     state = {
@@ -14,21 +18,24 @@ class ThreeWizard extends Component {
     };
 
     handlePost = () => {
-        var { name, address, city, state, zip } = this.state
-        var body = {
+        this.props.addPayment(this.state)
+        
+        const { name, address, city, state, zip, image, mortgage, rent } = this.props
+        const body = {
             name: name,
             address: address,
             city: city,
             state: state,
             zip: zip,
+            image: image,
+            mortgage: mortgage,
+            rent: rent,
         }
-
+        
         axios.post(`/api/addHouse`, body).then(() => {
             this.props.history.push('/')
         })
     }
-
-
 
     render() {
         return (
@@ -70,16 +77,28 @@ class ThreeWizard extends Component {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div className="field is-group buttons are-small is-centered">
-                        <button className="button is-success is-centered" onClick={() => this.handlePost()}>
-                            Add New House
-                    </button>
-                    </div>
+                <div className='buttons is-right'>
+                    <span className='button is-small is-warning'>
+                        <Link to='/wizard/step2'>
+                            Previous
+                        </Link>
+                    </span>
+                    <span className='button is-small is-success' onClick={() => this.handlePost()}>
+                        Add New House
+                    </span>
+                    <span className="button is-small is-danger">
+                        <Link to='/'>
+                            Cancel
+                        </Link>
+                    </span>
                 </div>
             </div>
         )
     }
 };
 
-export default ThreeWizard;
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect(mapStateToProps, { addPayment })(ThreeWizard);

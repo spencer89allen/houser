@@ -13,10 +13,11 @@ module.exports = {
     },
 
     addHouse: (req, res) => {
-        var { name, address, city, state, zip } = req.body
+        console.log(req.body)
+        var { name, address, city, state, zip, image, mortgage, rent } = req.body
         const dbInstance = req.app.get('db')
 
-        dbInstance.add_house([name, address, city, state, zip]).then((response) => {
+        dbInstance.add_house([name, address, city, state, zip, image, mortgage, rent]).then((response) => {
             res.status(200).send('added')
         }).catch((err) => {
             console.log(err)

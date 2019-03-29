@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { addHouseInfo } from '/Users/spencerallen/devmtn/houser/src/redux/wizardReducer.js';
+
 
 class OneWizard extends Component {
 
@@ -17,6 +20,7 @@ class OneWizard extends Component {
             [name]: value,
         });
     };
+
 
     render() {
         return (
@@ -113,13 +117,25 @@ class OneWizard extends Component {
                     </div>
                 </div>
                 <div className="buttons are-small is-right">
-                    <Link to='/wizard/step2' className="button is-warning">
-                        Next
-                    </Link>
+                    <span className='button is-warning'>
+                        <Link to='/wizard/step2' onClick={() => this.props.addHouseInfo(this.state)}>
+                            Next
+                        </Link>
+                    </span>
+                    <span className="button is-danger">
+                        <Link to='/'>
+                            Cancel
+                        </Link>
+                    </span>
                 </div>
             </div>
         )
     }
 };
 
-export default OneWizard;
+function mapStateToProps(state) {
+    return state;
+  }
+  // ^ dispatcher
+
+  export default connect(mapStateToProps, { addHouseInfo })(OneWizard);

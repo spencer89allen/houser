@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { addImage } from '/Users/spencerallen/devmtn/houser/src/redux/wizardReducer.js';
 
 class TwoWizard extends Component {
+
     state = {
         image: '',
     };
@@ -13,12 +16,11 @@ class TwoWizard extends Component {
         });
     };
 
-
-
     render() {
         return (
             <div className="container">
-                <br></br>
+                <br/>
+                <br/>
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
                         <label className="label">Property Image</label>
@@ -37,14 +39,30 @@ class TwoWizard extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="buttons are-small is-right">
-                    <Link to='/wizard/step3' className="button is-warning">
-                        Next
-                    </Link>
+                <div className='buttons is-right'>
+                    <span className='button is-small is-warning'>
+                        <Link to='/wizard/step1'>
+                            Previous
+                        </Link>
+                    </span>
+                    <span className='button is-small is-warning'>
+                        <Link to='/wizard/step3' onClick={() => this.props.addImage(this.state)}>
+                            Next
+                        </Link>
+                    </span>
+                    <span className="button is-small is-danger">
+                        <Link to='/'>
+                            Cancel
+                        </Link>
+                    </span>
                 </div>
             </div>
         )
     }
 };
 
-export default TwoWizard;
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect(mapStateToProps, { addImage })(TwoWizard);
