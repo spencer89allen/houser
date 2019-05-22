@@ -9,6 +9,7 @@ class Dashboard extends Component {
 
     state = {
         inventory: [],
+        showModal: false,
     }
 
     componentDidMount() {
@@ -31,9 +32,15 @@ class Dashboard extends Component {
         })
     };
 
+    handleToggleModal = (id) => {
+        this.setState({
+            showModal: !this.state.showModal
+        })
+    }
+
 
     render() {
-
+        console.log(this.state.showModal)
         return (
             <div>
                 <section className="hero">
@@ -48,7 +55,10 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </section>
-                <House houses={this.state.inventory} remove={this.handleDeleteHouse}/>
+                <House houses={this.state.inventory} 
+                    remove={this.handleDeleteHouse} 
+                    showModal={this.state.showModal} 
+                    toggleModal={this.handleToggleModal}/>
             </div>
         )
     }

@@ -17,6 +17,8 @@ class TwoWizard extends Component {
     };
 
     render() {
+        console.log(this.props.match)
+
         return (
             <div className="container">
                 <br/>
@@ -30,7 +32,7 @@ class TwoWizard extends Component {
                             <p className="control">
                                 <input className="input"
                                     type="text"
-                                    placeholder="e.g The Some URL"
+                                    placeholder="e.g Some URL"
                                     value={this.state.image}
                                     name='image'
                                     onChange={(e) => this.handleInput(e.target.name, e.target.value)}
